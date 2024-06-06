@@ -90,3 +90,30 @@ In this example, we are using the startaTransition function to mark a state upda
 # Concurrent Rendering and Concurrent Features in React 18
 
 You can improve your app's performance using concurrent rendering by declaring some states as non-important or we can say that non-urgent. The new concurrent features in your app will work automatically in the specific areas that use them since these features were built on top of concurrent rendering.
+
+- **StartTransition API**:
+
+It is used to keep the app responsive without blocking user interaction by allowing us you to mark specific updates as transitions.
+
+```js
+    import { startTransition } from 'react';
+    
+    // Urgent
+    setInputValue(input);
+    
+    // Mark any state updates inside as transitions
+    startTransition(() => {
+      // Transition
+      setSearchQuery(input);
+    })
+```
+- **useTransition API**:
+By using useTransition API React can track and update pending state transitions with the usePending flag. It helps to display loading feedback to users so that users will know that something is happening in the background.
+
+```js
+import { useTransition } from 'react';
+    
+    const [isPending, startTransition] = useTransition();
+    
+    {isPending && <Spinner />}
+```
