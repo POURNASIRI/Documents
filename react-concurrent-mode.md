@@ -62,3 +62,31 @@ Let's say you're fetching data from an API. Normally, managing the loading state
 </Suspense>
 ```
 Here, if `DataFetchingComponent` is still fetching data, React shows the fallback loading message.
+
+***React introduces a concurrent renderer that works on multiple tasks at the same time, without blocking the main thread. In concurrent mode react interrupts an ongoing task to handle a new task that is more urgent than the current task.****
+
+```js
+import { startTransition } from "react";
+
+function MyComponent() {
+  const [state, setState] = useState(initialState);
+
+  function handleClick() {
+    startTransition(() => {
+      setState(newState);
+    });
+  }
+
+  // ...
+}
+```
+
+
+
+In this example, we are using the startaTransition function to mark a state update as a transition. This is useful to tell React that this update is non-urgent and this can be interrupted if there is another urgent task.
+
+
+
+# Concurrent Rendering and Concurrent Features in React 18
+
+You can improve your app's performance using concurrent rendering by declaring some states as non-important or we can say that non-urgent. The new concurrent features in your app will work automatically in the specific areas that use them since these features were built on top of concurrent rendering.
