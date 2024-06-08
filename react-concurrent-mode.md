@@ -117,3 +117,21 @@ import { useTransition } from 'react';
     
     {isPending && <Spinner />}
 ```
+ **useDefferedValue API :**
+
+ This API helps keep the UI responsive by letting React delay updates to slow parts of the screen. For instance, if one part of the UI updates quickly and another part takes longer, React can hold off updating the slower part, showing its old value while other components update.
+```js
+import { useState, useDeferredValue } from "react";
+    
+    function App() {
+      const [input, setInput] = useState("");
+      const deferredValue = useDeferredValue(text, { timeoutMs: 3000 }); 
+    
+      return (
+        <div>
+          <input value={input} onChange={handleChange} />
+          <MyList text={deferredValue} />
+        </div>
+      );
+     }
+```
